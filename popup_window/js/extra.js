@@ -1,6 +1,6 @@
 
 // User Unique ID //
-var HARDWARE_SUPPORTED =["geolocation","bluetooth", "vibrate","onLine" ,"mediaDevices","oscpu","deviceorientation","orientationchange","notification","indexedDB"];
+var HARDWARE_SUPPORTED =["geolocation","bluetooth", "vibrate","onLine" ,"mediaDevices","oscpu","deviceorientation","orientationchange","notification","indexedDB","filesystem"];
 
 
 
