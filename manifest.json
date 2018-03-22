@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Privacy Protector",
-  "description": "This extension will analyze script find out where a script have access",
-  "version": "1.0",
+  "name": "PrivacySafer",
+  "description": "This extension will allow you to defne preferences for access to data and restrict access by the web application",
+  "version": "3.0",
 
   "browser_action": {
     "default_icon": "popup_window/img/icon.png",
@@ -17,4 +17,3 @@
                       }],
   "web_accessible_resources": ["injectedElement.js"]
 }
-
