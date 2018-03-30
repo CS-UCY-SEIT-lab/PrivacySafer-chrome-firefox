@@ -1,28 +1,24 @@
 
 // User Unique ID //
-var HARDWARE_SUPPORTED =["geolocation","bluetooth", "vibrate","onLine" ,"mediaDevices","oscpu","deviceorientation","orientationchange","notification","indexedDB","filesystem"];
+var HARDWARE_SUPPORTED = ["geolocation","bluetooth", "vibrate","onLine" ,"mediaDevices","oscpu","deviceorientation","orientationchange","notification","indexedDB","filesystem"];
+// parameters relevant to obfuscation to be stored
+var OBFUSCATION_PARAMETERS = ["geolocationlatitude", "geolocationlongitude", "radius"];
 
 
-
-
-
-
-
-// Function that set tha saved settings //
+// Function that sets the saved settings //
 $("#settings-button").on("click",restoreUserSettings);
-
 
 //$("#footer-scan-page").on("click",scanWebPage);
 $("#newpage").on("click",openInNewTab);
 
-// Function for show and hide the tabs in every hardware section //
+// Function for showing and hiding the tabs in every hardware section 
 $("a.list-group-item").on("click",function(){
     var t = $("*.collapse.internal").collapse("hide");
     $("."+$(this).href).collapse("show");
 
 });
 
-// Function that highlight the selected section of hardware //
+// Function that highlights the selected section of hardware 
 $(".list-group-item.api").on("click",function () {
 
     if ($(this).hasClass("active-hover")){
@@ -33,17 +29,54 @@ $(".list-group-item.api").on("click",function () {
     }
 });
 
+// show/hide areas for obfuscation
+$('#geolocationcoordinates').hide(); 
+$('#geolocationradius').hide(); 
 
-// Function that runs when user selected a setting to save the new setting//
+$("#obfuscationnone").on("click",function(){
+	$('#geolocationcoordinates').hide(); 
+	$('#geolocationradius').hide(); 
+});
+$("#obfuscationauto").on("click",function(){
+	$('#geolocationcoordinates').hide(); 
+	$('#geolocationradius').hide(); 
+});
+$("#obfuscationspecific").on("click",function(){
+	$('#geolocationcoordinates').show(); 
+	$('#geolocationradius').hide();
+});
+$("#obfuscationradius").on("click",function(){
+	$('#geolocationcoordinates').hide(); 
+    $('#geolocationradius').show();  
+})
+
+// Function that runs when user selects a setting to save the new settings
 $("#dev .list-group .list-group-item").on("click",function(){
     setTimeout(takeUserSettings,100);
 });
 $("#comm .list-group .list-group-item").on("click",function(){
     setTimeout(takeUserSettings,100);
 });
-
 $("#dataa .list-group .list-group-item").on("click",function(){
     setTimeout(takeUserSettings,100);
+});
+
+$("#geolocationobfuscationtype input[name='optradio']").on('change', function() {
+   setTimeout(takeUserSettings,100);
+});
+$("#geolocationlatitude").on("click",function(){
+	setTimeout(takeUserSettings,1000);
+	$("#radius").reset(); 	// clear radius
+});
+$("#geolocationlongitude").on("click",function(){
+	setTimeout(takeUserSettings,1000);
+	$("#radius").reset(); 	// clear radius
+});
+$("#radius").on("click",function(){
+	setTimeout(takeUserSettings,1000);
+	// clear coordinates
+	$("#geolocationlatitude").reset();
+	$("#geolocationlongitude").reset();
 });
 
 // Function that takes the user settings from panel//
@@ -52,17 +85,21 @@ function takeUserSettings() {
     for (var i = 0; i < HARDWARE_SUPPORTED.length; i++) {
         userOption[HARDWARE_SUPPORTED[i]] = document.getElementById(HARDWARE_SUPPORTED[i]).checked;
     }
+	// save obfuscation
+    userOption["geolocationobfuscationtype"] = $("#geolocationobfuscationtype input[name='optradio']:checked").val();
+	for (var k = 0; k < OBFUSCATION_PARAMETERS.length; k++) {
+      userOption[OBFUSCATION_PARAMETERS[k]] = document.getElementById(OBFUSCATION_PARAMETERS[k]).value;
+    }
+	
     saveUserSettings(userOption);
 }
 
 
 // Function That Saves User Settings
-
 function saveUserSettings(settings){
     chrome.storage.local.set({"user-settings":JSON.stringify(settings)},function(){
            console.log("Data Saved");
     });
-
 }
 
 // Function That retrieve user settings from local storage //
@@ -72,16 +109,29 @@ function restoreUserSettings() {
         userOptions = JSON.parse(userOptions["user-settings"]);
         console.log(userOptions);
         for (var key in userOptions) {
-
-           if (userOptions[key] === true) {
-              document.getElementById(key).checked = true;
-               $("#" + key).bootstrapToggle('on');
-           } else {
-               document.getElementById(key).checked = false;
-              $("#" +  key).bootstrapToggle('off');
-          }
+			if (HARDWARE_SUPPORTED.includes(key)) {
+			   if (userOptions[key] === true) {
+				  document.getElementById(key).checked = true;
+				   $("#" + key).bootstrapToggle('on');
+			   } else {
+				   document.getElementById(key).checked = false;
+				  $("#" +  key).bootstrapToggle('off');
+			  }
+			}
+			else if (key === "geolocationobfuscationtype") {
+				document.getElementById(userOptions[key]).checked = true; 
+				if (userOptions[key] == "obfuscationspecific") {
+					$('#geolocationcoordinates').show();
+				}
+				else if (userOptions[key] == "obfuscationradius") {
+					$('#geolocationradius').show();  
+				}
+			}
+			else if (OBFUSCATION_PARAMETERS.includes(key)) {
+				 document.getElementById(key).value = userOptions[key];
+			}
+		
        }
-
       });
 }
 
@@ -90,4 +140,3 @@ function openInNewTab() {
     var win = window.open("./popup_window/components/page.html", '_blank');
     win.focus();
 }
-

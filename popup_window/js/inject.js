@@ -59,7 +59,7 @@ if (!localStorage.hasOwnProperty("page-name")) {
     });
     localStorage.setItem("page-name",pageName);
     window.stop();
-}else{
+} else {
     console.log("has checked");
     if (localStorage.hasOwnProperty("user-settings")) {
         createUserSettingsDeleteElement();
@@ -82,10 +82,12 @@ function load(){
 
 }
 function createUserSettingsDeleteElement(){
+	console.log("createUserSettingsDeleteElement");
     var myScript = top.window.document.createElement('script');
 
     myScript.type = 'text/javascript';
     myScript.id="navigator";
+	
     myScript.innerHTML = 'console.log("deleting"); ' +
     'var userSettings={};' +
     'var nav=navigator; ' +
@@ -94,8 +96,14 @@ function createUserSettingsDeleteElement(){
     'userSettings = JSON.parse(localStorage.getItem("user-settings"));'+
     'console.log(userSettings);' +
     '' +
+	' var changedLatitude, changedLongitude; ' +
     '' +
     'for (var navkey in nav){' +
+	
+	'	if(navkey=="geolocation"){' +
+	'    console.log("found geolocation");' +
+    '    }' +
+	
     '   if(navkey=="appVersion"){' +
     '       if (userSettings["oscpu"]==false){' +
     '           continue;' +
@@ -117,10 +125,143 @@ function createUserSettingsDeleteElement(){
     'if(userSettings.hasOwnProperty("notification") && userSettings["notification"]==false){' +
     '   delete Notification;' +
     '}' +
-    '' +
+	
+	
+	'if(userSettings.hasOwnProperty("geolocation") && userSettings["geolocation"]==true) {' +
+		 
+	'	 if (userSettings.hasOwnProperty("geolocationobfuscationtype")) {' +
+	'		if (userSettings["geolocationobfuscationtype"]=="obfuscationauto") {' +
+	'			console.log("obfuscation auto");' +
+	'			userSettings["radius"] = "20";' +
+	'			window.navigator.geolocation.getCurrentPosition(successRadius, failure);	' +
+	'				window.navigator.geolocation.getCurrentPosition = function(success, failure) { ' +
+	'					success({ coords: { ' +
+	'						latitude: changedLatitude, ' +
+	'						longitude:changedLongitude,' +
+	'					}, timestamp: Date.now() });' +
+	'			}' +
+	
+	'		}' +
+	'		else if (userSettings["geolocationobfuscationtype"]=="obfuscationspecific") {' +
+	'			   console.log("obfuscation specific");' +
+	'			   if(userSettings.hasOwnProperty("geolocationlatitude") && userSettings.hasOwnProperty("geolocationlongitude")' +
+	'		       && userSettings["geolocationlatitude"].length != 0 && userSettings["geolocationlongitude"].length != 0) {' +
+	'				window.navigator.geolocation.getCurrentPosition = function(success, failure) { ' +
+	'					success({ coords: { ' +
+	'						latitude: userSettings["geolocationlatitude"], ' +
+	'						longitude: userSettings["geolocationlongitude"],' +
+	'					}, timestamp: Date.now() });' +
+	'				}' +
+	'			   }' +
+	'			   else {' +
+	'				   window.navigator.geolocation.getCurrentPosition = function(success, failure) { ' +
+	'					success({ coords: { ' +
+	'						latitude: 40.730610,' + 
+	'						longitude: -73.935242,' +
+	'					}, timestamp: Date.now() });' +
+	'				}' +
+	'			}' +
+	'		}' +
+	'		else if (userSettings["geolocationobfuscationtype"]=="obfuscationradius") {' +
+	'			console.log("obfuscation radius");' +
+	'			if(userSettings.hasOwnProperty("radius") && userSettings["radius"].length != 0) {' +
+	'				window.navigator.geolocation.getCurrentPosition(successRadius, failure);	' +
+	'				window.navigator.geolocation.getCurrentPosition = function(success, failure) { ' +
+	'				success({ coords: { ' +
+	'					latitude: changedLatitude, ' +
+	'					longitude:changedLongitude,' +
+	'				}, timestamp: Date.now() });' +
+	'			}' +
+	'			}' +
+	
+	'		}' +
+	
+	'	}' +
+
+
+	'}		' +
+
+	
+	
+	'	function successRadius(position) {' +
+		'	originLat = position.coords.latitude;' +
+		'	originLong = position.coords.longitude;' +	
+		'	r = userSettings["radius"]*1000/111300;' +
+		'	u = Math.random();' +
+		'	v = Math.random();' +
+		'	w = r * Math.sqrt(u);' +
+		'	t = 2 * Math.PI * v;' +
+		'	x = w * Math.cos(t);' +
+		'	y1 = w * Math.sin(t);' +
+		'	x1 = x / Math.cos(originLat);' +	
+		'	changedLatitude = originLat + y1;' +
+		'	changedLongitude = originLong + x1;' +
+		'}' +
+    'function failure() {' +
+	'}	' +
+	
+	
     '';
+    '' +
     top.window.document.getElementsByTagName('html')[0].insertBefore(myScript, document.getElementsByTagName("head")[0]);
 }
+
+
+
+	
+
+/*	'	   if (userSettings.hasOwnProperty("obfuscationauto") && userSettings["obfuscationauto"]==true){' +
+	'	   console.log("obfuscation true");' +
+	'		   window.navigator.geolocation.getCurrentPosition = function(success, failure) { ' +
+	'			success({ coords: { ' +
+	'				latitude: 40.730610, ' +
+	'				longitude: -73.935242,' +
+	'			}, timestamp: Date.now() }); ' +
+	'		};' +
+	
+	'	   }' +
+*/
+
+/*
+    myScript.innerHTML = 'console.log("deleting"); ' +
+    'var userSettings={};' +
+    'var nav=navigator; ' +
+    'delete window.navigator;' +
+    'window.navigator = {};' +
+    'userSettings = JSON.parse(localStorage.getItem("user-settings"));'+
+    'console.log(userSettings);' +
+    '' +
+    '' +
+    'for (var navkey in nav){' +
+	
+	'	if(navkey=="geolocation"){' +
+	'    console.log("found geolocation");' +
+    '    }' +
+	
+    '   if(navkey=="appVersion"){' +
+    '       if (userSettings["oscpu"]==false){' +
+    '           continue;' +
+    '       }' +
+    '   }'+
+    '   if ( userSettings.hasOwnProperty(navkey) && userSettings[navkey]==false){' +
+    '       continue;' +
+    '   }' +
+    ''+
+    '   window.navigator[navkey]=nav[navkey];' +
+    ''+
+    '}' +
+    ''+
+    'if(userSettings.hasOwnProperty("indexedDB") && userSettings["indexedDB"]==false){' +
+    ''+
+    '  delete indexedDB;' +
+    '}' +
+    '' +
+    'if(userSettings.hasOwnProperty("notification") && userSettings["notification"]==false){' +
+    '   delete Notification;' +
+    '}' +
+    '';
+    '' +
+*/
 
 function deleteUserSettingsEvents(){
     var mySecondScript =top.window.document.createElement('script');

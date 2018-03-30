@@ -3,18 +3,15 @@
 <head>
     <title> Default Settings </title>
 
-
     <!-- JAVASCRIPT FILES -->
     <script src="popup_window/libs/jQuery.js" type="text/javascript"></script>
     <script src="bootstrap-components/bootstrap-3.3.6-dist/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="bootstrap-components/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
 
-
     <!-- CSS STYLE SHEETS -->
     <link href="bootstrap-components/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="bootstrap-components/bootstrap-toggle/css/bootstrap-toggle.min.css">
     <link rel="stylesheet" href="popup_window/css/popup.css" type="text/css">
-
 
 </head>
 <body>
@@ -40,7 +37,7 @@
 
                     <div class="collapse internal" id="dev">
                         <ul class="list-group">
-                            <li class="list-group-item">Current Position <input id="geolocation" type="checkbox" checked data-toggle="toggle"></li>
+                            <li class="list-group-item">Current Position <input id="geolocation" type="checkbox" checked data-toggle="toggle"></li>						
                             <li class="list-group-item">Device Orientation and Motion <input id="deviceorientation" type="checkbox" checked data-toggle="toggle"></li>
                             <li class="list-group-item">Screen Orientation <input id="orientationchange" type="checkbox" checked  data-toggle="toggle"></li>
                             <li class="list-group-item">Vibration Access <input id="vibrate" type="checkbox" checked data-toggle="toggle"></li>
@@ -70,20 +67,56 @@
 							<li class="list-group-item">File system [future use]<input id="filesystem" type="checkbox" checked  data-toggle="toggle"></li>
                         </ul>
                     </div>
+						
+					<a class="list-group-item" id="geolocation-obfuscation" data-toggle="collapse" data-target="#geolocationobfuscationtype">Obfuscate location</a>
 
+					<div class="collapse internal" id="geolocationobfuscationtype">
+					    <div class="radio">
+							<label><input type="radio" id="obfuscationnone" name="optradio" value="obfuscationnone" checked>None</label>
+						</div>
+						<div class="radio">
+							<label><input type="radio" id="obfuscationauto" name="optradio" value="obfuscationauto">Auto</label>
+						</div>						
+						<div class="radio">
+							<label><input type="radio" id="obfuscationspecific" name="optradio" value="obfuscationspecific">Specific coordinates</label>		
+							<div id="geolocationcoordinates">
+								<fieldset>
+									<div class="col-sm-4">
+										<div class="input-group">
+											 <input id="geolocationlatitude" type="text" class="form-control" name="geolocationlatitude" placeholder="Latitude">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										 <div class="input-group">
+											 <input id="geolocationlongitude" type="text" class="form-control" name="geolocationlongitude" placeholder="Longitude">
+										 </div>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+						<div class="radio">
+							<label><input type="radio" id="obfuscationradius" name="optradio" value="obfuscationradius">Radius</label>
+						</div>
+						<div id="geolocationradius">
+								<fieldset>
+									<div class="col-sm-4">
+										<div class="input-group">
+											 <input id="radius" type="text" class="form-control" name="radius" placeholder="Radius">
+											 <!--<input type="checkbox" id="radiusmetric" data-toggle="toggle" data-on="miles" data-off="km">-->
+										 </div>
+									</div>
+								</fieldset>
+								
+							</div>
+						
+					</div>
+						
                     <a id="newpage" class="list-group-item api"><i>Advanced Settings</i></a>
-
-                    <div id="obfuscation">
-                        <ul class="list-group">
-                            <li class="list-group-item">Obfuscation [future use]<input id="obfuscationalways" type="checkbox" checked data-toggle="toggle"> </li>
-                            <!--<li class="list-group-item">Obfuscation when access blocked [future use]<input id="obfuscationblocked" type="checkbox" checked  data-toggle="toggle"></li>-->
-                        </ul>
-                    </div>
-                    
+                    							
                 </ul>
+
             </div>
         </div>
-
 
     </div>
 

@@ -54,7 +54,8 @@ chrome.storage.local.get("user",function(data){
 
 var DAY ="monday";
 var ALL_DAYS = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
-var HARDWARE_SUPPORTED =["geolocation","bluetooth","vibrate","onLine","mediaDevices","oscpu","deviceorientation","orientationchange", "devicelight","userproximity","notification","indexedDB","filesystem"];
+// obfuscation is also added here for handling
+var HARDWARE_SUPPORTED =["geolocation","bluetooth","vibrate","onLine","mediaDevices","oscpu","deviceorientation","orientationchange", "devicelight","userproximity","notification","indexedDB","filesystem", "geolocation-obfuscation"];
 var HARDWARE_SLIDER=[];
 var EDIT_FLAG = {edit:false,isGroup:false};
 var OLD_PAGE_NAME = "";
@@ -371,8 +372,8 @@ function saveAllDaysForPage(){
 
 
 /**
- * Function that collects all values grom sliders and toggles and make thaem as JSON
- * for every day. Every day represent a JSON .
+ * Function that collects all values from sliders and toggles and make them as JSON.
+ * for every day. Every day represents a JSON.
  *
  *
  * @param day
