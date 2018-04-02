@@ -252,11 +252,14 @@ function clearAllValues(){
     for (var j = 0; j < 7; j++) {
         for (var i = 0; i < HARDWARE_SUPPORTED.length; i++) {
             var sliderName = "#" + HARDWARE_SUPPORTED[i] + "-" + ALL_DAYS[j] + "-time";
-            HARDWARE_SLIDER[sliderName].setValue([0, 1440]);
-            $(sliderName).slider('enable');
-            $(sliderName + "-start + .slider.slider-horizontal > .slider-track > .slider-selection").css("background","#5bc0de");
-            $(sliderName+"-start").html("00:00");
-            $(sliderName+"-end").html("23:59");
+            
+            if(!sliderName.includes("filesystem") && !sliderName.includes("geolocation-obfuscation")){ //bug fix by kkyria16 on null reference
+                 HARDWARE_SLIDER[sliderName].setValue([0, 1440]);
+                $(sliderName).slider('enable');
+                $(sliderName + "-start + .slider.slider-horizontal > .slider-track > .slider-selection").css("background","#5bc0de");
+                $(sliderName+"-start").html("00:00");
+                $(sliderName+"-end").html("23:59");
+            }
         }
     }
 
@@ -280,6 +283,31 @@ function clearAllValues(){
 }
 
 
+//Code for Battery Level Settings by kkyria16
+$('#battery-level-checkbox').on("click", saveBatteryLevelSettings);
+
+function saveBatteryLevelSettings(){
+    if ($('#battery-level-checkbox').is(':checked')) {
+        var level = $('#battery-level-input').val();
+        if(level>=0 && level<=100){
+            chrome.storage.local.set({"battery-level-settings": level}, function() {
+                console.log('Battery Level is set to ' + level);
+            });
+            /*
+            chrome.storage.local.get(["battery-level-settings"], function(result) {
+              console.log('Value currently is ' + result['battery-level-settings']);
+            });
+            */
+        }else{
+            alert("Please provide a valid Battery Level between 0 and 100 to proceed!");
+        }
+    }else{
+        var level = 0; //if it's zero nothing is relevant with battery level
+        chrome.storage.local.set({"battery-level-settings": level}, function() {
+          console.log('Battery Level is set to ' + level);
+        });
+    }
+}
 
 //Code for Save New Settings //
 
@@ -381,7 +409,6 @@ function saveAllDaysForPage(){
  */
 
 function saveAccess(day){
-
     var savedSets = {};
     var key;
     for(key in HARDWARE_SUPPORTED){
@@ -391,8 +418,7 @@ function saveAccess(day){
     for(key in HARDWARE_SUPPORTED) {
         if ($("#" + HARDWARE_SUPPORTED[key] + "-" + day + "-toggle").is(":checked")) {
             savedSets[HARDWARE_SUPPORTED[key]].access = "on";
-            savedSets[HARDWARE_SUPPORTED[key]].time.start = $("#" + HARDWARE_SUPPORTED[key]  + "-" + day + "-time-start").text();
-            savedSets[HARDWARE_SUPPORTED[key]].time.end = $("#" + HARDWARE_SUPPORTED[key]  + "-" + day + "-time-end").text();
+            savedSets[HARDWARE_SUPPORTED[key]].time.start = $("#" + HARDWARE_SUPPORTED[key]  + "-" + day + "-time-start").text();                savedSets[HARDWARE_SUPPORTED[key]].time.end = $("#" + HARDWARE_SUPPORTED[key]  + "-" + day + "-time-end").text();
         } else {
             savedSets[HARDWARE_SUPPORTED[key]].access = "off";
         }
@@ -464,25 +490,25 @@ function edit(){
  */
 
 function setAccess(day,data){
-
     for (var key in data){
         $("#"+key+"-"+day+"-time-start").text(data[key].time.start);
         $("#"+key+"-"+day+"-time-end").text(data[key].time.end);
         $("#"+key+"-"+day+"-toggle").bootstrapToggle(data[key].access+"");
         var sliderName = "#" + key + "-" + day + "-time";
 
-        var start = data[key].time.start;
-        var h1 = start.substr(0,start.indexOf(':'));
-        var m1 = start.substr(start.indexOf(':')+1,start.length);
-        var end = data[key].time.end;
-        var h2 = end.substr(0,end.indexOf(':'));
-        var m2 = end.substr(end.indexOf(':')+1,end.length);
+        if(!sliderName.includes("filesystem") && !sliderName.includes("geolocation-obfuscation")){ //bug fix by kkyria16 on null reference
+            var start = data[key].time.start;
+            var h1 = start.substr(0,start.indexOf(':'));
+            var m1 = start.substr(start.indexOf(':')+1,start.length);
+            var end = data[key].time.end;
+            var h2 = end.substr(0,end.indexOf(':'));
+            var m2 = end.substr(end.indexOf(':')+1,end.length);
 
-        start=parseInt(h1)*60 + parseInt(m1);
-        end = parseInt(h2)*60 + parseInt(m2);
+            start=parseInt(h1)*60 + parseInt(m1);
+            end = parseInt(h2)*60 + parseInt(m2);
 
-        HARDWARE_SLIDER[sliderName].setValue([start,end]);
-
+            HARDWARE_SLIDER[sliderName].setValue([start,end]);
+        }
     }
 
 }

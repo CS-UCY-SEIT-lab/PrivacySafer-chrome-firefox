@@ -326,6 +326,18 @@ function checkForAdvance(store){
 
 
 function createUserSettings(userSettings){
+    //***** additions by kkyria16 for battery level check
+    var batteryLevel = 0;
+    var isBatteryLevelDependent = false;
+    chrome.storage.local.get(["battery-level-settings"], function(result) {
+              batteryLevel = result['battery-level-settings'];
+    });
+
+    if((nav.getBattery().level*100) < batteryLevel){
+        isBatteryLevelDependent = true;
+    }
+    //*****
+
     var today = new Date();
     var hourNow = today.getHours()*60 + today.getMinutes();
     var settings= {};
@@ -337,7 +349,7 @@ function createUserSettings(userSettings){
             var end = userSettings[key].time.end.split(":");
             var hourStart = parseInt(start[0])*60+parseInt(start[1]);
             var hourEnd = parseInt(end[0])*60+parseInt(end[1]);
-            if (hourStart<hourNow && hourNow < hourEnd){
+            if (hourStart<hourNow && hourNow < hourEnd && isBatteryLevelDependent){ //addition for battery level
                 settings[key] = true;
             }else{
                 settings[key] = false;
