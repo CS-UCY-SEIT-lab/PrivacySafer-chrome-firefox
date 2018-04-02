@@ -55,7 +55,7 @@ chrome.storage.local.get("user",function(data){
 var DAY ="monday";
 var ALL_DAYS = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
 // obfuscation is also added here for handling
-var HARDWARE_SUPPORTED =["geolocation","bluetooth","vibrate","onLine","mediaDevices","oscpu","deviceorientation","orientationchange", "devicelight","userproximity","notification","indexedDB","filesystem", "geolocation-obfuscation"];
+var HARDWARE_SUPPORTED =["geolocation","bluetooth","vibrate","onLine","mediaDevices","oscpu","deviceorientation","orientationchange", "devicelight","userproximity","notification","indexedDB","filesystem", "geolocation-obfuscation", "batteryaccess"];
 var HARDWARE_SLIDER=[];
 var EDIT_FLAG = {edit:false,isGroup:false};
 var OLD_PAGE_NAME = "";

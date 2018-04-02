@@ -1,6 +1,6 @@
 
 // User Unique ID //
-var HARDWARE_SUPPORTED = ["geolocation","bluetooth", "vibrate","onLine" ,"mediaDevices","oscpu","deviceorientation","orientationchange","notification","indexedDB","filesystem"];
+var HARDWARE_SUPPORTED = ["geolocation","bluetooth", "vibrate","onLine" ,"mediaDevices","oscpu","deviceorientation","orientationchange","notification","indexedDB","filesystem", "batteryaccess"];
 // parameters relevant to obfuscation to be stored
 var OBFUSCATION_PARAMETERS = ["geolocationlatitude", "geolocationlongitude", "radius"];
 

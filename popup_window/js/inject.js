@@ -90,10 +90,12 @@ function createUserSettingsDeleteElement(){
 	
     myScript.innerHTML = 'console.log("deleting"); ' +
     'var userSettings={};' +
+    'var batteryLevelSettings={};' +
     'var nav=navigator; ' +
     'delete window.navigator;' +
     'window.navigator = {};' +
     'userSettings = JSON.parse(localStorage.getItem("user-settings"));'+
+    'batteryLevelSettings = JSON.parse(localStorage.getItem("battery-level-settings"));' +
     'console.log(userSettings);' +
     '' +
 	' var changedLatitude, changedLongitude; ' +
@@ -200,6 +202,16 @@ function createUserSettingsDeleteElement(){
     'function failure() {' +
 	'}	' +
 	
+    '' +
+    '' +
+    'if(userSettings.hasOwnProperty("batteryaccess") && userSettings["batteryaccess"]==true){' + 
+    '   window.navigator.getBattery = nav.getBattery;' +
+    '   console.log(\'BATTERY ACCESS IS: \' + userSettings["batteryaccess"] + \' :: \' + window.navigator.getBattery);' +
+    '}else{' +
+    '   window.navigator.getBattery = null;' +
+    '   console.log(\'BATTERY ACCESS IS: \' + userSettings["batteryaccess"] + \' :: \' + window.navigator.getBattery);' +
+    '}' +
+    '' +
 	
     '';
     '' +
