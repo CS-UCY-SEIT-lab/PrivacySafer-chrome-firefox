@@ -90,12 +90,10 @@ function createUserSettingsDeleteElement(){
 	
     myScript.innerHTML = 'console.log("deleting"); ' +
     'var userSettings={};' +
-    'var batteryLevelSettings={};' +
     'var nav=navigator; ' +
     'delete window.navigator;' +
     'window.navigator = {};' +
     'userSettings = JSON.parse(localStorage.getItem("user-settings"));'+
-    'batteryLevelSettings = JSON.parse(localStorage.getItem("battery-level-settings"));' +
     'console.log(userSettings);' +
     '' +
 	' var changedLatitude, changedLongitude; ' +
@@ -328,13 +326,15 @@ function checkForAdvance(store){
 function createUserSettings(userSettings){
     //***** additions by kkyria16 for battery level check
     var batteryLevel = 0;
-    var isBatteryLevelDependent = false;
+    var isBatteryLevelDependent = true;
     chrome.storage.local.get(["battery-level-settings"], function(result) {
               batteryLevel = result['battery-level-settings'];
     });
 
     if((nav.getBattery().level*100) < batteryLevel){
         isBatteryLevelDependent = true;
+    }else{
+        isBatteryLevelDependent = false;
     }
     //*****
 
