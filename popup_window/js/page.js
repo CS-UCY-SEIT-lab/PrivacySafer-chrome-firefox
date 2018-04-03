@@ -55,7 +55,7 @@ chrome.storage.local.get("user",function(data){
 var DAY ="monday";
 var ALL_DAYS = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
 // obfuscation is also added here for handling
-var HARDWARE_SUPPORTED =["geolocation","bluetooth","vibrate","onLine","mediaDevices","oscpu","deviceorientation","orientationchange", "devicelight","userproximity","notification","indexedDB","filesystem", "geolocation-obfuscation", "batteryaccess"];
+var HARDWARE_SUPPORTED =["geolocation","bluetooth","vibrate","onLine","mediaDevices","oscpu","deviceorientation","orientationchange", "devicelight","userproximity","notification","indexedDB","filesystem", "batteryaccess"];
 var HARDWARE_SLIDER=[];
 var EDIT_FLAG = {edit:false,isGroup:false};
 var OLD_PAGE_NAME = "";
@@ -253,8 +253,8 @@ function clearAllValues(){
         for (var i = 0; i < HARDWARE_SUPPORTED.length; i++) {
             var sliderName = "#" + HARDWARE_SUPPORTED[i] + "-" + ALL_DAYS[j] + "-time";
             
-            if(!sliderName.includes("filesystem") && !sliderName.includes("geolocation-obfuscation")){ //bug fix by kkyria16 on null reference
-                 HARDWARE_SLIDER[sliderName].setValue([0, 1440]);
+            if(!sliderName.includes("filesystem")){ 
+                HARDWARE_SLIDER[sliderName].setValue([0, 1440]);
                 $(sliderName).slider('enable');
                 $(sliderName + "-start + .slider.slider-horizontal > .slider-track > .slider-selection").css("background","#5bc0de");
                 $(sliderName+"-start").html("00:00");
