@@ -125,10 +125,8 @@ function createUserSettingsDeleteElement(){
     'if(userSettings.hasOwnProperty("notification") && userSettings["notification"]==false){' +
     '   delete Notification;' +
     '}' +
-	
-	
-	'if(userSettings.hasOwnProperty("geolocation") && userSettings["geolocation"]==true) {' +
-		 
+		
+	'if(userSettings.hasOwnProperty("geolocation") && userSettings["geolocation"]==true) {' +	 
 	'	 if (userSettings.hasOwnProperty("geolocationobfuscationtype")) {' +
 	'		if (userSettings["geolocationobfuscationtype"]=="obfuscationauto") {' +
 	'			console.log("obfuscation auto");' +
@@ -177,12 +175,7 @@ function createUserSettingsDeleteElement(){
 	'		}' +
 	
 	'	}' +
-
-
 	'}		' +
-
-	
-	
 	'	function successRadius(position) {' +
 		'	originLat = position.coords.latitude;' +
 		'	originLong = position.coords.longitude;' +	
@@ -202,10 +195,10 @@ function createUserSettingsDeleteElement(){
 	
     '' +
     '' +
-    'if(userSettings.hasOwnProperty("batteryaccess") && userSettings["batteryaccess"]==true){' + 
+    'if (userSettings.hasOwnProperty("batteryaccess") && userSettings["batteryaccess"]==true) {' + 
     '   window.navigator.getBattery = nav.getBattery;' +
     '   console.log(\'BATTERY ACCESS IS: \' + userSettings["batteryaccess"] + \' :: \' + window.navigator.getBattery);' +
-    '}else{' +
+    '} else {' +
     '   window.navigator.getBattery = null;' +
     '   console.log(\'BATTERY ACCESS IS: \' + userSettings["batteryaccess"] + \' :: \' + window.navigator.getBattery);' +
     '}' +
@@ -215,63 +208,6 @@ function createUserSettingsDeleteElement(){
     '' +
     top.window.document.getElementsByTagName('html')[0].insertBefore(myScript, document.getElementsByTagName("head")[0]);
 }
-
-
-
-	
-
-/*	'	   if (userSettings.hasOwnProperty("obfuscationauto") && userSettings["obfuscationauto"]==true){' +
-	'	   console.log("obfuscation true");' +
-	'		   window.navigator.geolocation.getCurrentPosition = function(success, failure) { ' +
-	'			success({ coords: { ' +
-	'				latitude: 40.730610, ' +
-	'				longitude: -73.935242,' +
-	'			}, timestamp: Date.now() }); ' +
-	'		};' +
-	
-	'	   }' +
-*/
-
-/*
-    myScript.innerHTML = 'console.log("deleting"); ' +
-    'var userSettings={};' +
-    'var nav=navigator; ' +
-    'delete window.navigator;' +
-    'window.navigator = {};' +
-    'userSettings = JSON.parse(localStorage.getItem("user-settings"));'+
-    'console.log(userSettings);' +
-    '' +
-    '' +
-    'for (var navkey in nav){' +
-	
-	'	if(navkey=="geolocation"){' +
-	'    console.log("found geolocation");' +
-    '    }' +
-	
-    '   if(navkey=="appVersion"){' +
-    '       if (userSettings["oscpu"]==false){' +
-    '           continue;' +
-    '       }' +
-    '   }'+
-    '   if ( userSettings.hasOwnProperty(navkey) && userSettings[navkey]==false){' +
-    '       continue;' +
-    '   }' +
-    ''+
-    '   window.navigator[navkey]=nav[navkey];' +
-    ''+
-    '}' +
-    ''+
-    'if(userSettings.hasOwnProperty("indexedDB") && userSettings["indexedDB"]==false){' +
-    ''+
-    '  delete indexedDB;' +
-    '}' +
-    '' +
-    'if(userSettings.hasOwnProperty("notification") && userSettings["notification"]==false){' +
-    '   delete Notification;' +
-    '}' +
-    '';
-    '' +
-*/
 
 function deleteUserSettingsEvents(){
     var mySecondScript =top.window.document.createElement('script');

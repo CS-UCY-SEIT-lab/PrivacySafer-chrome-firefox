@@ -95,14 +95,14 @@ function takeUserSettings() {
 }
 
 
-// Function That Saves User Settings
+// function that saves user settings
 function saveUserSettings(settings){
     chrome.storage.local.set({"user-settings":JSON.stringify(settings)},function(){
            console.log("Data Saved");
     });
 }
 
-// Function That retrieve user settings from local storage //
+// function that retrieves user settings from local storage //
 function restoreUserSettings() {
     var userOptions = chrome.storage.local.get("user-settings", function (userOptions) {
         console.log("Data Retrieved");

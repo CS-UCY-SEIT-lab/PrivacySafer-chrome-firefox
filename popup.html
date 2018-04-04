@@ -42,9 +42,7 @@
                             <li class="list-group-item">Screen Orientation <input id="orientationchange" type="checkbox" checked  data-toggle="toggle"></li>
                             <li class="list-group-item">Vibration Access <input id="vibrate" type="checkbox" checked data-toggle="toggle"></li>
                             <li class="list-group-item">Camera <input id="mediaDevices" type="checkbox" checked data-toggle="toggle"></li>
-							<!--Addition for battery access by kkyria16 -->
-                            <li class="list-group-item">Battery State Access <input id="batteryaccess" type="checkbox" checked data-toggle="toggle"></li>
-                            <!-- -->
+                            <li class="list-group-item">Battery Status <input id="batteryaccess" type="checkbox" checked data-toggle="toggle"></li>
                         </ul>
                     </div>
 
@@ -70,66 +68,59 @@
                         </ul>
                     </div>
 						
-					<a class="list-group-item" id="geolocation-obfuscation" data-toggle="collapse" data-target="#geolocationobfuscationtype">Obfuscate location</a>
+				</ul>
+				<a class="list-group-item" id="geolocation-obfuscation" data-toggle="collapse" data-target="#geolocationobfuscationtype">Obfuscate location</a>
 
-					<div class="collapse internal" id="geolocationobfuscationtype">
-					    <div class="radio">
-							<label><input type="radio" id="obfuscationnone" name="optradio" value="obfuscationnone" checked>None</label>
-						</div>
-						<div class="radio">
-							<label><input type="radio" id="obfuscationauto" name="optradio" value="obfuscationauto">Auto</label>
-						</div>						
-						<div class="radio">
-							<label><input type="radio" id="obfuscationspecific" name="optradio" value="obfuscationspecific">Specific coordinates</label>		
-							<div id="geolocationcoordinates">
-								<fieldset>
-									<div class="col-sm-4">
-										<div class="input-group">
-											 <input id="geolocationlatitude" type="text" class="form-control" name="geolocationlatitude" placeholder="Latitude">
-										</div>
-									</div>
-									<div class="col-sm-4">
-										 <div class="input-group">
-											 <input id="geolocationlongitude" type="text" class="form-control" name="geolocationlongitude" placeholder="Longitude">
-										 </div>
-									</div>
-								</fieldset>
-							</div>
-						</div>
-						<div class="radio">
-							<label><input type="radio" id="obfuscationradius" name="optradio" value="obfuscationradius">Radius</label>
-						</div>
-						<div id="geolocationradius">
-								<fieldset>
-									<div class="col-sm-4">
-										<div class="input-group">
-											 <input id="radius" type="text" class="form-control" name="radius" placeholder="Radius">
-											 <!--<input type="checkbox" id="radiusmetric" data-toggle="toggle" data-on="miles" data-off="km">-->
-										 </div>
-									</div>
-								</fieldset>
-								
-							</div>
-						
+				<div class="collapse internal" id="geolocationobfuscationtype">
+				    <div class="radio">
+						<label><input type="radio" id="obfuscationnone" name="optradio" value="obfuscationnone" checked>None</label>
 					</div>
+					<div class="radio">
+						<label><input type="radio" id="obfuscationauto" name="optradio" value="obfuscationauto">Auto</label>
+					</div>						
+					<div class="radio">
+						<label><input type="radio" id="obfuscationspecific" name="optradio" value="obfuscationspecific">Specific coordinates</label>		
+						<div id="geolocationcoordinates">
+							<fieldset>
+								<div class="col-sm-4">
+									<div class="input-group">
+										 <input id="geolocationlatitude" type="text" class="form-control" name="geolocationlatitude" placeholder="Latitude">
+									</div>
+								</div>
+								<div class="col-sm-4">
+									 <div class="input-group">
+										 <input id="geolocationlongitude" type="text" class="form-control" name="geolocationlongitude" placeholder="Longitude">
+									 </div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="radio">
+						<label><input type="radio" id="obfuscationradius" name="optradio" value="obfuscationradius">Radius</label>
+					</div>
+					<div id="geolocationradius">
+							<fieldset>
+								<div class="col-sm-4">
+									<div class="input-group">
+										 <input id="radius" type="text" class="form-control" name="radius" placeholder="Radius">
+										 <!--<input type="checkbox" id="radiusmetric" data-toggle="toggle" data-on="miles" data-off="km">-->
+									 </div>
+								</div>
+							</fieldset>	
+					</div>
+				</div>
 						
-                    <a id="newpage" class="list-group-item api"><i>Advanced Settings</i></a>
+                <a id="newpage" class="list-group-item api"><i>Advanced Settings</i></a>
                     							
-                </ul>
-
             </div>
         </div>
 
     </div>
 
     <div id="footer">
-
     </div>
-
 
     <script src="popup_window/js/extra.js" type="text/javascript"></script>
 
 </body>
-
-
 </html>
