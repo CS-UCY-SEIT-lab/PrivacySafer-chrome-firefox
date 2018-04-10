@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "PrivacySafer",
-  "description": "This extension will allow you to defne preferences for access to data and restrict access by the web application",
+  "description": "This extension will allow you to define preferences for access to data and restrict access by the web application",
   "version": "3.0",
 
   "browser_action": {

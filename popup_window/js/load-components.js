@@ -2,7 +2,7 @@
  * Created by theodorosxaralambous on 02/01/16.
  */
 $("#monday-settings").load("monday.html");
-$("#tuesday-settings").load("tuesday2.html");
+$("#tuesday-settings").load("tuesday.html");
 $("#wednesday-settings").load("wednesday.html");
 $("#thursday-settings").load("thursday.html");
 $("#friday-settings").load("friday.html");

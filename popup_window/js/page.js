@@ -1,3 +1,7 @@
+var isChromium = window.chrome,
+    winNav = window.navigator,
+    vendorName = winNav.vendor,
+    isIOSChrome = winNav.userAgent.match("CriOS");
 var store = {};
 store.storage ={};
 
@@ -55,7 +59,7 @@ chrome.storage.local.get("user",function(data){
 var DAY ="monday";
 var ALL_DAYS = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
 // obfuscation is also added here for handling
-var HARDWARE_SUPPORTED =["geolocation","bluetooth","vibrate","onLine","mediaDevices","oscpu","deviceorientation","orientationchange", "devicelight","userproximity","notification","indexedDB","filesystem", "batteryaccess"];
+var HARDWARE_SUPPORTED =["geolocation","bluetooth","vibrate","onLine","mediaDevices","oscpu","deviceorientation","orientationchange", "devicelight","userproximity","notification","indexedDB","batteryaccess","connection","devicelight","userproximity"];
 var HARDWARE_SLIDER=[];
 var EDIT_FLAG = {edit:false,isGroup:false};
 var OLD_PAGE_NAME = "";
@@ -70,6 +74,7 @@ var settingsForPage = {
     sunday: {}
 };
 
+		
 setTimeout(initializeAll, 500);
 $("li.list-group-item.inline").on("click",function (){
     $("li.list-group-item.inline").removeClass("active-access");
@@ -98,23 +103,33 @@ $(".days").on("click",function (){
         $("li.list-group-item.inline").removeClass("active-access");
         $("#hardware").addClass("active-access");
         $("#hardware-access-"+DAY).removeClass("hide");
+        
+        // hide for Firefox
+		if (typeof InstallTrigger !== 'undefined') {
+ 			$("#" + DAY +"-battery").addClass("hide");
+			$("#" + DAY +"-network").addClass("hide");
+		}
+		// hide for Chrome
+		if (isChromium !== null && typeof isChromium !== "undefined" && vendorName === "Google Inc.") {
+			$("#" + DAY +"-light").addClass("hide");
+			$("#" + DAY +"-proximity").addClass("hide");
+		}
 
     },400);
-
-
+	
 });
 
 
 /* Copy From One Day To Other Day */
 $("#drop-down-menu-left li a").on("click",function (){
-    var name =  $(this).text();
+    var name = $(this).text();
     var element='<span class="caret right mycaret"></span>';
     $("#transfer-btn-left").text(name).append(element);
 
 });
 
 $("#drop-down-menu-right li a").on("click",function (){
-    var name =  $(this).text();
+    var name = $(this).text();
     var element='<span class="caret right mycaret"></span>';
     $("#transfer-btn-right").text(name).append(element);
 
@@ -147,10 +162,9 @@ $("#copy-btn").on("click",function(){
 
 
 /**
- * Function that translate minutes to hours
+ * Function that translates minutes to hours
  *
  */
-
 function test(){
 
     var sliderName ="#"+ $(this).attr("id");
@@ -238,6 +252,17 @@ function initializeAll () {
 
     $(".loader").addClass("hide");
     $("#monday-settings").removeClass("hide");
+    
+    // hide for Firefox
+	if (typeof InstallTrigger !== 'undefined') {
+ 		$("#monday-battery").addClass("hide");
+		$("#monday-network").addClass("hide");
+	}
+	// hide for Chrome
+	if (isChromium !== null && typeof isChromium !== "undefined" && vendorName === "Google Inc.") {
+		$("#monday-light").addClass("hide");
+		$("#monday-proximity").addClass("hide");
+	}
 
 }
 
@@ -281,7 +306,6 @@ function clearAllValues(){
 
 
 }
-
 
 //Code for Battery Level Settings by kkyria16
 $('#battery-level-checkbox').on("click", saveBatteryLevelSettings);
@@ -640,13 +664,13 @@ function listSavedPages() {
     });
 
     if(batteryLevel==0){
-        document.getElementById('battery-level-checkbox').checked = false;
-        $('battery-level-input').val("0");
+        document.getElementById("battery-level-checkbox").checked = false;
+        $("battery-level-input").val("0");
     }else if(batteryLevel>0 && batteryLevel <= 100){
-        document.getElementById('battery-level-checkbox').checked = true;
-        $('battery-level-input').val(batteryLevel+"");
+        document.getElementById("battery-level-checkbox").checked = true;
+        $("battery-level-input").val(batteryLevel+"");
     }else{
-        document.getElementById('battery-level-checkbox').checked = false;
+        document.getElementById("battery-level-checkbox").checked = false;
     }
 }
 

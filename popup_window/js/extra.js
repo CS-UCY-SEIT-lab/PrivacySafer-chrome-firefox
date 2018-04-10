@@ -1,9 +1,8 @@
-
 // User Unique ID //
-var HARDWARE_SUPPORTED = ["geolocation","bluetooth", "vibrate","onLine" ,"mediaDevices","oscpu","deviceorientation","orientationchange","notification","indexedDB","filesystem", "batteryaccess"];
+var HARDWARE_SUPPORTED = ["geolocation","bluetooth","vibrate","onLine","mediaDevices","oscpu","deviceorientation","orientationchange","notification","indexedDB","batteryaccess","connection","devicelight","userproximity"];
+
 // parameters relevant to obfuscation to be stored
 var OBFUSCATION_PARAMETERS = ["geolocationlatitude", "geolocationlongitude", "radius"];
-
 
 // Function that sets the saved settings //
 $("#settings-button").on("click",restoreUserSettings);
@@ -15,7 +14,6 @@ $("#newpage").on("click",openInNewTab);
 $("a.list-group-item").on("click",function(){
     var t = $("*.collapse.internal").collapse("hide");
     $("."+$(this).href).collapse("show");
-
 });
 
 // Function that highlights the selected section of hardware 
@@ -28,6 +26,22 @@ $(".list-group-item.api").on("click",function () {
         $(this).addClass("active-hover");
     }
 });
+
+var isChromium = window.chrome,
+    winNav = window.navigator,
+    vendorName = winNav.vendor,
+    isIOSChrome = winNav.userAgent.match("CriOS");
+    
+// hide for Firefox
+if (typeof InstallTrigger !== 'undefined') {
+	$('#battery').hide(); 
+	$('#network').hide(); 
+}
+// hide for Chrome
+if (isChromium !== null && typeof isChromium !== "undefined" && vendorName === "Google Inc.") {
+	$('#light').hide(); 
+	$('#proximity').hide(); 
+}
 
 // show/hide areas for obfuscation
 $('#geolocationcoordinates').hide(); 
@@ -73,7 +87,7 @@ $("#geolocationlongitude").on("click",function(){
 	$("#radius").reset(); 	// clear radius
 });
 $("#radius").on("click",function(){
-	setTimeout(takeUserSettings,1000);
+	setTimeout(takeUserSettings,500);
 	// clear coordinates
 	$("#geolocationlatitude").reset();
 	$("#geolocationlongitude").reset();
@@ -83,7 +97,10 @@ $("#radius").on("click",function(){
 function takeUserSettings() {
     var userOption = {};
     for (var i = 0; i < HARDWARE_SUPPORTED.length; i++) {
-        userOption[HARDWARE_SUPPORTED[i]] = document.getElementById(HARDWARE_SUPPORTED[i]).checked;
+    	// if it is supported in the browser 
+    	if(document.getElementById(HARDWARE_SUPPORTED[i])) {
+    		userOption[HARDWARE_SUPPORTED[i]] = document.getElementById(HARDWARE_SUPPORTED[i]).checked;	
+    	}
     }
 	// save obfuscation
     userOption["geolocationobfuscationtype"] = $("#geolocationobfuscationtype input[name='optradio']:checked").val();
@@ -134,7 +151,6 @@ function restoreUserSettings() {
        }
       });
 }
-
 
 function openInNewTab() {
     var win = window.open("./popup_window/components/page.html", '_blank');

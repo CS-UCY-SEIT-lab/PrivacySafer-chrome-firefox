@@ -39,10 +39,18 @@
                         <ul class="list-group">
                             <li class="list-group-item">Current Position <input id="geolocation" type="checkbox" checked data-toggle="toggle"></li>						
                             <li class="list-group-item">Device Orientation and Motion <input id="deviceorientation" type="checkbox" checked data-toggle="toggle"></li>
-                            <li class="list-group-item">Screen Orientation <input id="orientationchange" type="checkbox" checked  data-toggle="toggle"></li>
+                            <li class="list-group-item">Screen Orientation <input id="orientationchange" type="checkbox" checked data-toggle="toggle"></li>
+                            <div id="light">
+                            	<li class="list-group-item">Light Sensor <input id="devicelight" type="checkbox" checked data-toggle="toggle"></li>
+                            </div>
+                            <div id="proximity">
+                            	<li class="list-group-item">Proximity Sensor <input id="userproximity" type="checkbox" checked  data-toggle="toggle"></li>
+                            </div>
                             <li class="list-group-item">Vibration Access <input id="vibrate" type="checkbox" checked data-toggle="toggle"></li>
                             <li class="list-group-item">Camera <input id="mediaDevices" type="checkbox" checked data-toggle="toggle"></li>
-                            <li class="list-group-item">Battery Status <input id="batteryaccess" type="checkbox" checked data-toggle="toggle"></li>
+                            <div id="battery">
+                            	<li class="list-group-item">Battery Status <input id="batteryaccess" type="checkbox" checked data-toggle="toggle"></li>
+                            </div>
                         </ul>
                     </div>
 
@@ -51,9 +59,12 @@
 
                     <div class="collapse internal" id="comm">
                         <ul class="list-group">
-                            <li class="list-group-item">Bluetooth <input id="bluetooth" type="checkbox" checked  data-toggle="toggle"></li>
-                            <li class="list-group-item">Network Information <input id="onLine" type="checkbox" checked  data-toggle="toggle"></li>
-                            <li class="list-group-item">Web Notifications <input id="notification"  type="checkbox" checked data-toggle="toggle"></li>
+                            <li class="list-group-item">Online status <input id="onLine" type="checkbox" checked data-toggle="toggle"></li>
+                            <div id="network">
+                            	<li class="list-group-item">Network Information <input id="connection" type="checkbox" checked data-toggle="toggle"></li>
+                            	<li class="list-group-item">Bluetooth <input id="bluetooth" type="checkbox" checked data-toggle="toggle"></li>
+                            </div>
+                            <li class="list-group-item">Web Notifications <input id="notification" type="checkbox" checked data-toggle="toggle"></li>
                         </ul>
                     </div>
 
@@ -63,8 +74,7 @@
                     <div class="collapse internal" id="dataa">
                         <ul class="list-group">
                             <li class="list-group-item">IndexedDB <input id="indexedDB" type="checkbox" checked data-toggle="toggle"> </li>
-                            <li class="list-group-item">Operating System Information <input id="oscpu" type="checkbox" checked  data-toggle="toggle"></li>
-							<li class="list-group-item">File system [future use]<input id="filesystem" type="checkbox" checked  data-toggle="toggle"></li>
+                            <li class="list-group-item">Operating System Information <input id="oscpu" type="checkbox" checked data-toggle="toggle"></li>
                         </ul>
                     </div>
 						

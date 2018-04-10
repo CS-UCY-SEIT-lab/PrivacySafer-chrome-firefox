@@ -1,9 +1,10 @@
-# PrivacySafer - ChromePrivacyExtension
+# PrivacySafer - Privacy Extension for Chrome and Firefox web browsers
 
-Chrome extension that prevents web applications from having access to your sensitive data within the web browser (like geolocation and more).
+Chrome and Firefox extension that prevents web applications from having access to your sensitive data within the web browser (like geolocation and more).
+
+Newer version that has replaced the Firefox add-on that was implemented using Firefox Add-on SDK.
 
 If you want to cite this code in your work, please use:
-
 
 @inproceedings{kapitsaki2017privacysafer,
   title={PrivacySafer: Privacy Adaptation for HTML5 Web Applications},

@@ -1,4 +1,6 @@
 console.log("Injected");
+console.log(window.navigator.connection);
+console.log("agent " + window.navigator.appVersion);
 var ss = {storage: {}};
 var userSets = {};
 var pageName=window.location.href;
@@ -103,13 +105,12 @@ function createUserSettingsDeleteElement(){
 	'	if(navkey=="geolocation"){' +
 	'    console.log("found geolocation");' +
     '    }' +
-	
     '   if(navkey=="appVersion"){' +
     '       if (userSettings["oscpu"]==false){' +
     '           continue;' +
     '       }' +
     '   }'+
-    '   if ( userSettings.hasOwnProperty(navkey) && userSettings[navkey]==false){' +
+    '   if (userSettings.hasOwnProperty(navkey) && userSettings[navkey]==false){' +
     '       continue;' +
     '   }' +
     ''+
@@ -118,7 +119,6 @@ function createUserSettingsDeleteElement(){
     '}' +
     ''+
     'if(userSettings.hasOwnProperty("indexedDB") && userSettings["indexedDB"]==false){' +
-    ''+
     '  delete indexedDB;' +
     '}' +
     '' +
@@ -126,13 +126,23 @@ function createUserSettingsDeleteElement(){
     '   delete Notification;' +
     '}' +
 		
+	'' +
+    'if (userSettings.hasOwnProperty("batteryaccess") && userSettings["batteryaccess"]==true) {' + 
+    '   window.navigator.getBattery = nav.getBattery;' +
+    '   console.log(\'BATTERY ACCESS IS: \' + userSettings["batteryaccess"] + \' :: \' + window.navigator.getBattery);' +
+    '} else {' +
+    '   window.navigator.getBattery = null;' +
+    '   console.log(\'BATTERY ACCESS IS: \' + userSettings["batteryaccess"] + \' :: \' + window.navigator.getBattery);' +
+    '}' +
+    '' +
+       
 	'if(userSettings.hasOwnProperty("geolocation") && userSettings["geolocation"]==true) {' +	 
 	'	 if (userSettings.hasOwnProperty("geolocationobfuscationtype")) {' +
 	'		if (userSettings["geolocationobfuscationtype"]=="obfuscationauto") {' +
 	'			console.log("obfuscation auto");' +
 	'			userSettings["radius"] = "20";' +
 	'			window.navigator.geolocation.getCurrentPosition(successRadius, failure);	' +
-	'				window.navigator.geolocation.getCurrentPosition = function(success, failure) { ' +
+	'			window.navigator.geolocation.getCurrentPosition = function(success, failure) { ' +
 	'					success({ coords: { ' +
 	'						latitude: changedLatitude, ' +
 	'						longitude:changedLongitude,' +
@@ -161,7 +171,6 @@ function createUserSettingsDeleteElement(){
 	'			}' +
 	'		}' +
 	'		else if (userSettings["geolocationobfuscationtype"]=="obfuscationradius") {' +
-	'			console.log("obfuscation radius");' +
 	'			if(userSettings.hasOwnProperty("radius") && userSettings["radius"].length != 0) {' +
 	'				window.navigator.geolocation.getCurrentPosition(successRadius, failure);	' +
 	'				window.navigator.geolocation.getCurrentPosition = function(success, failure) { ' +
@@ -193,17 +202,6 @@ function createUserSettingsDeleteElement(){
     'function failure() {' +
 	'}	' +
 	
-    '' +
-    '' +
-    'if (userSettings.hasOwnProperty("batteryaccess") && userSettings["batteryaccess"]==true) {' + 
-    '   window.navigator.getBattery = nav.getBattery;' +
-    '   console.log(\'BATTERY ACCESS IS: \' + userSettings["batteryaccess"] + \' :: \' + window.navigator.getBattery);' +
-    '} else {' +
-    '   window.navigator.getBattery = null;' +
-    '   console.log(\'BATTERY ACCESS IS: \' + userSettings["batteryaccess"] + \' :: \' + window.navigator.getBattery);' +
-    '}' +
-    '' +
-	
     '';
     '' +
     top.window.document.getElementsByTagName('html')[0].insertBefore(myScript, document.getElementsByTagName("head")[0]);
@@ -224,14 +222,15 @@ function deleteUserSettingsEvents(){
     '   ' +
     '}' +
     '' +
-    'if (userSettings["devicelight"]==false){' +
+    'if (userSettings.hasOwnProperty("devicelight") && userSettings["devicelight"]==false){' +
+    '   delete DeviceLightEvent;' +
     '   window.removeEventListener("devicelight",function (e){});' +
     '}' +
     '' +
-    'if (userSettings["userproximity"]==false){' +
+    'if (userSettings.hasOwnProperty("userproximity") && userSettings["userproximity"]==false){' +
     '   delete UserProximityEvent;' +
+    '   delete DeviceProximityEvent;' +
     '}'+
-    '' +
     '' +
     '';
     top.window.document.getElementsByTagName('html')[0].insertBefore(mySecondScript, document.getElementsByTagName("head")[0]);
