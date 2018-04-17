@@ -106,6 +106,7 @@ $(".days").on("click",function (){
         
         // hide for Firefox
 		if (typeof InstallTrigger !== 'undefined') {
+			$("#battery-level").addClass("hide");
  			$("#" + DAY +"-battery").addClass("hide");
 			$("#" + DAY +"-network").addClass("hide");
 		}
@@ -255,6 +256,7 @@ function initializeAll () {
     
     // hide for Firefox
 	if (typeof InstallTrigger !== 'undefined') {
+		$("#battery-level").addClass("hide");
  		$("#monday-battery").addClass("hide");
 		$("#monday-network").addClass("hide");
 	}
@@ -663,13 +665,13 @@ function listSavedPages() {
               batteryLevel = result['battery-level-settings'];
     });
 
-    if(batteryLevel==0){
+    if (batteryLevel===0){
         document.getElementById("battery-level-checkbox").checked = false;
         $("battery-level-input").val("0");
-    }else if(batteryLevel>0 && batteryLevel <= 100){
+    } else if (batteryLevel>0 && batteryLevel <= 100){
         document.getElementById("battery-level-checkbox").checked = true;
         $("battery-level-input").val(batteryLevel+"");
-    }else{
+    } else {
         document.getElementById("battery-level-checkbox").checked = false;
     }
 }
