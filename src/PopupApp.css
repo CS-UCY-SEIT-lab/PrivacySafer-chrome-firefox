@@ -1,0 +1,212 @@
+.experimentalmessage {
+  font-size: 10px !important;
+  font-family: 'Georgia', 'Times New Roman', Verdana, Arial, Helvetica, sans-serif !important;
+}
+
+.redstar {
+  font-size: 10px !important;
+  color: red;
+}
+
+#popup {
+  min-width: 409px !important;
+  width: 335px !important;
+ max-height: 409px !important;
+}
+
+#top-bar {
+    background-color: #00ac9d;
+    border: 2px solid #00ac9d;
+    min-width: 409px !important;
+    width: 335px !important;
+    height: 50px;
+    border-radius: 4px;
+}
+
+#footer{
+    height: 50px;
+    min-width: 409px !important;
+    width: 335px !important;
+    border:  2px solid #00ac9d ;
+    padding: 1px;
+    background-color:white ;
+    position: relative;
+    border-radius: 4px;
+}
+
+#plugIn {
+    display: inline-block;
+    margin-top: 12px;
+    margin-left: 16px;
+    height: 40px;
+    float: left;
+}
+
+#help {
+  display: inline-block;
+margin-top: 12px;
+margin-right: 10px;
+height: 40px;
+float: right;
+}
+
+#helpSpan {
+  font-family: 'Georgia', 'Times New Roman', Verdana, Arial, Helvetica, sans-serif !important;
+  font-weight: bold;
+}
+
+#helpLink {
+  text-decoration: none;
+  color: #212529;
+}
+
+#logo {
+    float: left;
+    margin-left: 8px;
+}
+
+#logoPicture {
+  width: 50px;
+  height: 50px;
+}
+
+#plugInName {
+  font-family: 'Georgia', 'Times New Roman', Verdana, Arial, Helvetica, sans-serif !important;
+  font-weight: bold;
+}
+
+#btnLanguage {
+  border: 0px;
+  background-color: transparent ;
+}
+
+#footerWrap {
+  margin-top: 12px;
+  margin-left: 10px;
+  height: 40px;
+  float : left;
+}
+
+#footerLanguage {
+  margin-top: 12px;
+  margin-right: 10px;
+  height: 40px;
+  float: right;
+}
+
+#footerText {
+  font-family: 'Georgia', 'Times New Roman', Verdana, Arial, Helvetica, sans-serif !important;
+  font-weight: bold;
+}
+
+#footerPicDiv {
+  float: right;
+  margin-right: 120px;
+}
+
+#footerPic {
+  width: 80px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.LanguageLink {
+  cursor: pointer;
+  color: #00ac9d;
+  border: 1px solid #00ac9d;
+}
+
+.active, .LanguageLink:hover {
+  border: 2px solid #00ac9d;
+}
+
+.CardTitle {
+    font-size: 10px !important;
+    font-size: 10px!important;
+    margin-top: -5px !important;
+    margin-bottom: 15px !important;
+  }
+
+.CardBody {
+  height: 50px;
+}
+
+.CardButton {
+  margin-top: -15px;
+  height: 20px;
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+  .cardImage {
+    width: 40px;
+    height: 40px;
+  }
+
+.CardDiv {
+  width: 120px !important;
+  display: -ms-flexbox !important;
+display: flex !important;
+-ms-flex-direction: column !important;
+flex-direction: column !important;
+}
+
+
+.CardGroupBox {
+  display: -webkit-inline-box;
+}
+
+.Collapsible {
+  background-color: white; }
+
+.Collapsible__contentInner {
+  padding: 10px;
+  border: 1px solid #ebebeb;
+  border-top: 0; }
+
+
+  .Collapsible__contentInner p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px; }
+
+    .Collapsible__contentInner p:last-child {
+      margin-bottom: 0; }
+
+.Collapsible__trigger {
+  display: block;
+  font-weight: 400;
+  text-decoration: none;
+  color: #333333;
+  position: relative;
+  border: 1px solid white;
+  padding: 10px;
+  background: #00ac9d;
+  color: white; }
+
+  .Collapsible__trigger:after {
+    font-family: 'FontAwesome';
+    content: '∨';
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: block;
+    transition: transform 300ms; }
+  .Collapsible__trigger.is-open:after {
+    transform: rotateZ(180deg); }
+  .Collapsible__trigger.is-disabled {
+    opacity: 0.5;
+    background-color: grey; }
+
+.CustomTriggerCSS {
+  background-color: lightcoral;
+  transition: background-color 200ms ease; }
+
+.CustomTriggerCSS--open {
+  background-color: darkslateblue; }
+
+.Collapsible__custom-sibling {
+  padding: 5px;
+  font-size: 12px;
+  background-color: #CBB700;
+  color: black; }

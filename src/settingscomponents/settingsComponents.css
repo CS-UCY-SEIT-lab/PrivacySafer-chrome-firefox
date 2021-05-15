@@ -1,0 +1,41 @@
+
+.redstar {
+  font-size: 10px !important;
+  color: red;
+}
+
+.CardTitle {
+    font-size: 10px !important;
+    font-size: 10px!important;
+    margin-top: -5px !important;
+    margin-bottom: 15px !important;
+  }
+
+.CardBody {
+  height: 50px;
+}
+
+.CardButton {
+  margin-top: -15px;
+  height: 20px;
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+  .cardImage {
+    width: 40px;
+    height: 40px;
+  }
+
+.CardDiv {
+  width: 120px !important;
+  display: -ms-flexbox !important;
+display: flex !important;
+-ms-flex-direction: column !important;
+flex-direction: column !important;
+}
+
+
+.CardGroupBox {
+  display: -webkit-inline-box;
+}
